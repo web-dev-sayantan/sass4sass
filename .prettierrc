@@ -1,0 +1,25 @@
+{
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["cn"],
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "printWidth": 80,
+  "bracketSameLine": true,
+  "bracketSpacing": true,
+  "jsxSingleQuote": true,
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "importOrder": [
+    "^[./]",
+    "^@/app/(.*)$",
+    "^@/layouts/(.*)$",
+    "^@/lib/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/components/(.*)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

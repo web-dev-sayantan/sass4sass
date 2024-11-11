@@ -1,6 +1,7 @@
-import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
+
+import { auth } from "@/lib/auth";
 
 export default async function Dashboard() {
   const session = await auth.api.getSession({

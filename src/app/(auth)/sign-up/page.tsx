@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
   Form,
@@ -19,13 +20,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "@/lib/client";
+import GoogleButton from "@/components/google-button";
+import { Github } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 const signupSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
+  name: z.string().min(2),
   email: z.string().email(),
 });
 
@@ -33,8 +36,7 @@ export default function SignUp() {
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
     },
   });
@@ -45,7 +47,7 @@ export default function SignUp() {
   }
   return (
     <Card className="min-w-[400px]">
-      <CardHeader className="flex items-center justify-between">
+      <CardHeader className="space-y-1 flex items-center justify-center">
         <Image
           src="/saas4saas.svg"
           alt="logo"
@@ -53,62 +55,53 @@ export default function SignUp() {
           height={60}
           className="rounded-full"
         />
-        <h1 className="text-2xl text-center font-bold">
-          Welcome to SaaS-4-SaaS
-        </h1>
+        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardDescription className="text-center">
+          Enter your information to get started
+        </CardDescription>
       </CardHeader>
-      <CardDescription>
-        <p className="text-base/70 text-center text-pretty px-4">
-          By signing up, you agree to our{" "}
-          <a
-            href="#"
-            className="text-brand-800 underline-offset-4 hover:underline"
-          >
-            Terms of Service
-          </a>{" "}
-          &{" "}
-          <a
-            href="#"
-            className="text-brand-800 underline-offset-4 hover:underline"
-          >
-            Privacy Policy
-          </a>
-        </p>
-      </CardDescription>
       <CardContent className="pb-0">
+        <div className="flex items-center gap-4 w-full pb-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full flex-1"
+            onClick={() => signUpWithSocial("github")}
+          >
+            <Github className="mr-2 h-4 w-4" />
+            <span className="font-semibold">Github</span>
+          </Button>
+          <GoogleButton
+            className="w-full flex-1"
+            onClick={() => signUpWithSocial("google")}
+          />
+        </div>
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <Separator className="w-full" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
+        </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(console.log)}
-            className="space-y-6 py-6"
+            className="space-y-4 py-4"
           >
             <FormField
               control={form.control}
-              name="firstName"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor={field.name}>First Name</FormLabel>
+                  <FormLabel htmlFor={field.name}>Full Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Enter your first name"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor={field.name}>Last Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      placeholder="Enter your last name"
+                      placeholder="Enter your full name"
                     />
                   </FormControl>
                   <FormMessage />
@@ -132,51 +125,10 @@ export default function SignUp() {
                 </FormItem>
               )}
             />
-            <div className="flex flex-col items-center justify-center gap-1">
-              <Button type="submit" className="w-full">
+            <div className="flex flex-col items-center justify-center">
+              <Button type="submit" className="w-full font-bold">
                 Get Started
               </Button>
-              <h1 className="text-muted-foreground">OR</h1>
-              <div className="flex items-center gap-4 w-full">
-                <Button
-                  type="button"
-                  size={"withIcon"}
-                  className="w-full flex-1"
-                  onClick={() => signUpWithSocial("github")}
-                >
-                  <div className="bg-white ml-2.5 rounded-md p-[2px]">
-                    <Image
-                      src="/github-icon.svg"
-                      alt="github"
-                      width={20}
-                      height={20}
-                      className=" bg-brand-25 text-brand-800 rounded-full"
-                    />
-                  </div>
-                  <div className="flex-1 text-center">
-                    <span>Signup with Github</span>
-                  </div>
-                </Button>
-                <Button
-                  type="button"
-                  size={"withIcon"}
-                  className="w-full flex-1"
-                  onClick={() => signUpWithSocial("google")}
-                >
-                  <div className="flex bg-white ml-2.5 rounded-md p-[2px]">
-                    <Image
-                      src="/google-icon.svg"
-                      alt="github"
-                      width={18}
-                      height={18}
-                      className=" bg-brand-25 text-brand-800 rounded-full"
-                    />
-                  </div>
-                  <div className="flex-1 text-center">
-                    <span>Signup with Google</span>
-                  </div>
-                </Button>
-              </div>
             </div>
           </form>
         </Form>

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   darkMode: ["class"],
@@ -9,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heading: ["var(--font-heading)", ...fontFamily.sans],
+      },
       colors: {
         brand: {
           25: "#EFFBF3",
@@ -22,6 +26,7 @@ export default {
           700: "#248277",
           800: "#14746f",
           900: "#036666",
+          950: "#021e1e",
         },
         "discord-gray": "#26393f",
         "discord-text": "#dcddde",
@@ -72,6 +77,15 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+    },
+    keyframes: {
+      "caret-blink": {
+        "0%,70%,100%": { opacity: "1" },
+        "20%,50%": { opacity: "0" },
+      },
+    },
+    animation: {
+      "caret-blink": "caret-blink 1.25s ease-out infinite",
     },
   },
   plugins: [require("tailwindcss-animate")],
