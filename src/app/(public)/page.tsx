@@ -1,7 +1,4 @@
 import { Check } from 'lucide-react'
-import Link from 'next/link'
-
-import { Button } from '@/components/ui/button'
 import Heading from '@/components/heading'
 import MaxWidthWrapper from '@/components/max-width-wrapper'
 import CtaButton from '@/components/cta-button'
@@ -9,7 +6,7 @@ import CtaButton from '@/components/cta-button'
 export default function Home() {
   return (
     <>
-      <section className='relative bg-brand-25 py-24 sm:py-32'>
+      <section className='relative py-24 sm:py-32'>
         <MaxWidthWrapper className='text-center'>
           <div className='relative mx-auto flex flex-col items-center gap-10 text-center'>
             <Heading>
@@ -21,7 +18,7 @@ export default function Home() {
             </Heading>
             <p className='max-w-prose text-pretty text-center text-base/7'>
               SaaS4SaaS is the best way to monitor your SaaS usage. Get instant
-              notifcations for{' '}
+              notifications for{' '}
               <span className='font-semibold text-brand-900'>
                 new users, sales or any other event
               </span>{' '}
@@ -34,7 +31,7 @@ export default function Home() {
                 'Track new users, sales or any other event',
               ].map((text, index) => (
                 <li key={index} className='flex items-center gap-1.5 text-left'>
-                  <Check className='h-5 w-5 shrink-0' />
+                  <Check className='h-5 w-5 shrink-0 text-brand-500' />
                   {text}
                 </li>
               ))}
@@ -49,14 +46,7 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
       </section>
-      <section>
-        <Link href='/sign-in'>
-          <Button>Sign In</Button>
-        </Link>
-        <Link href='/sign-up'>
-          <Button>Sign Up</Button>
-        </Link>
-      </section>
+      <section></section>
       <section></section>
       <section></section>
     </>

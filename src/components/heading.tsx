@@ -1,9 +1,10 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 type HeadingPropsType = {
-  children?: React.ReactNode;
-  className?: string;
-} & React.HTMLAttributes<HTMLHeadingElement>;
+  children?: React.ReactNode
+  className?: string
+} & React.HTMLAttributes<HTMLHeadingElement>
+
 export default function Heading({
   children,
   className,
@@ -12,12 +13,11 @@ export default function Heading({
   return (
     <h1
       className={cn(
-        "text-4xl sm:text-5xl text-pretty font-heading font-semibold tracking-tight text-zinc-800",
-        className
+        'text-pretty font-heading text-4xl font-semibold tracking-tight sm:text-5xl',
+        className,
       )}
-      {...props}
-    >
+      {...props}>
       {children}
     </h1>
-  );
+  )
 }

@@ -4,6 +4,7 @@ import { EB_Garamond } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { ThemeProvider } from '@/providers/theme-provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -38,11 +39,18 @@ export default function RootLayout({
         geistSans.variable,
         geistMono.variable,
         eb_garamond.variable,
-      )}>
+      )}
+      suppressHydrationWarning>
       <body className='flex min-h-[calc(100vh-1px)] flex-col bg-brand-25 font-sans text-brand-950 antialiased'>
-        <main className='relative flex flex-1 flex-col'>
-          <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
-        </main>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange>
+          <main className='relative flex flex-1 flex-col bg-background text-foreground'>
+            <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -1,23 +1,36 @@
-import { auth } from "@/lib/auth";
-import { Link } from "lucide-react";
-import { headers } from "next/headers";
-import { Suspense } from "react";
+import MaxWidthWrapper from '@/components/max-width-wrapper'
+import Navbar from '@/components/navbar'
+import { auth } from '@/lib/auth'
+import { headers } from 'next/headers'
+import Link from 'next/link'
+import { Suspense } from 'react'
 
 export default async function SecurePagesLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   const session = await auth.api.getSession({
     headers: await headers(),
-  });
+  })
   if (!session) {
     return (
       <p>
-        You are authorized to view this page. Please{" "}
-        <Link href="/sign-in">Sign In</Link>
+        You are not authorized to view this page. Please{' '}
+        <Link href='/sign-in'>Sign In</Link>
       </p>
-    );
+    )
   }
-  return <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>;
+  return (
+    <>
+      <Navbar />
+      <main className='flex flex-1 flex-col bg-background text-foreground'>
+        <MaxWidthWrapper className='py-4'>
+          <Suspense fallback={<p>Loading Secure Page...</p>}>
+            {children}
+          </Suspense>
+        </MaxWidthWrapper>
+      </main>
+    </>
+  )
 }
